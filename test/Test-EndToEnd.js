@@ -15,7 +15,7 @@ const TUS_RESUMABLE = require('../lib/constants').TUS_RESUMABLE;
 
 const STORE_PATH = '/files';
 const PROJECT_ID = 'vimeo-open-source';
-const KEYFILE = path.resolve(__dirname, 'keyfile.json');
+const KEYFILE = path.resolve(__dirname, '../keyfile.json');
 const BUCKET = 'tus-node-server';
 
 const FILES_DIRECTORY = path.resolve(__dirname, `..${STORE_PATH}`);
@@ -217,6 +217,10 @@ describe('EndToEnd', () => {
     });
 
     describe('GCSDataStore', () => {
+        if (process.env.TRAVIS_SECURE_ENV_VARS !== 'true') {
+            return;
+        }
+
         let file_id;
         let deferred_file_id;
         const files_created = [];

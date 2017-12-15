@@ -15,7 +15,7 @@ const EVENTS = require('../lib/constants').EVENTS;
 
 const STORE_PATH = '/files';
 const PROJECT_ID = 'vimeo-open-source';
-const KEYFILE = path.resolve(__dirname, 'keyfile.json');
+const KEYFILE = path.resolve(__dirname, '../keyfile.json');
 const BUCKET = 'tus-node-server';
 
 const TEST_FILE_SIZE = 960244;
@@ -38,6 +38,10 @@ const deleteFile = (file_name) => {
 };
 
 describe('GCSDataStore', () => {
+    if (process.env.TRAVIS_SECURE_ENV_VARS !== 'true') {
+        return;
+    }
+
     let server;
     let test_file_id;
     const files_created = [];
